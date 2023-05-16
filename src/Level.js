@@ -39,6 +39,14 @@ class Level {
         return lines;
     }
 
+    newBall(x, y, r, s) {
+        this.balls.push(new Ball(x, y, r, s));
+    }
+
+    newBall() {
+        this.balls.push(new Ball(Math.random()*100, Math.random()*100, Math.random()*Ball.maxRadius+Ball.minRadius, Math.random()*Ball.maxSpeed+Ball.minSpeed));
+    }
+
     testRandom(items) {
         for(let i = 0; i < items.length; i++)
         if(items[i] == 'R')
