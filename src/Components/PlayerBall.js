@@ -6,7 +6,9 @@ import VerticalLine from './VerticalLine.js';
 const canvasWidth = window.innerWidth-16;
 const canvasHeight = window.innerHeight;
 
-class PlayerBall {
+export default class PlayerBall {
+    static powerUpTime = 1000;
+
     constructor(speed, x, y, radius, lines) {
       this.dx = percentWidth(speed);
       this.dy = percentHeight(speed);
@@ -20,6 +22,7 @@ class PlayerBall {
       this.canvasWidth = canvasWidth;
       this.canvasHeight = canvasHeight;
       this.lines = lines;
+      this.poweredUp = false;
     }
   
     draw(ctx) {
@@ -72,6 +75,11 @@ class PlayerBall {
       this.right = false;
     }
   
+    changeSpeed(newSpeed) {
+      this.dx = percentWidth(newSpeed);
+      this.dy = percentHeight(newSpeed);
+    }
+
     stayInBounds(width, height) {
       if (this.x < this.radius) {
         this.x = this.radius;
@@ -118,6 +126,22 @@ class PlayerBall {
       const distance = Math.sqrt(dx * dx + dy * dy);
       return distance + offset< this.radius + otherBall.radius;
     }
-}
 
-export default PlayerBall;
+    powerUpCollision(powerUp) {
+      const dx = Math.abs(powerUp.x - this.x);
+      const dy = Math.abs(powerUp.y - this.y);
+      if(dx > (powerUp.length/2 + this.radius) || dy > (powerUp.length/2 + this.radius))
+        return false;
+      if(dx <= this.length/2 || dy <= this.length/2)
+        return false;
+      return (dx - this.length/2)^2 + (dy - this.length/2)^2;
+    }
+
+    powerUp() {
+      this.speed = 1;
+    }
+
+    powerDown() {
+      this.speed /= 2;
+    }
+}

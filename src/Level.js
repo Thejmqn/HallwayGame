@@ -7,7 +7,6 @@ class Level {
         this.data = file;
         this.balls = this.getBalls();
         this.lines = this.getLines();
-        console.log(this.balls)
     }
 
     getBalls() {
@@ -55,4 +54,4 @@ class Level {
     }
 }
 
-export default Level;
+export default Level;   

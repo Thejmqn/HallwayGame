@@ -1,11 +1,8 @@
-import percentWidth from './percentWidth.js';
-import percentHeight from './percentHeight.js';
+import Line from './Line.js';
 
-class HorziontalLine {
+class HorziontalLine extends Line {
     constructor(x, y, length) {
-      this.x = percentWidth(x);
-      this.y = percentHeight(y);
-      this.length = percentWidth(length);
+      super(x, y, length);
     }
   
     draw(ctx) {
@@ -19,6 +16,12 @@ class HorziontalLine {
     checkCollision(ball) {
       if (ball.y + ball.dy > this.y - ball.radius && ball.y + ball.dy < this.y + ball.radius && ball.x > this.x && ball.x < this.x + this.length) {
         ball.dy = -ball.dy;
+      }
+      if(this.y <= ball.y + ball.radius && this.y >= ball.y - ball.radius && ball.x > this.x && ball.x < this.x + this.length) {
+        if(this.y > ball.y)
+          ball.y = this.y - ball.radius;
+        else
+          ball.y = this.y + ball.radius;
       }
     }
 }

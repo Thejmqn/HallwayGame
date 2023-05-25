@@ -4,7 +4,7 @@ import percentHeight from './percentHeight.js';
 const canvasWidth = window.innerWidth-16;
 const canvasHeight = window.innerHeight;
 
-class Ball {
+export default class Ball {
   static test = "";
   static maxRadius = 25;
   static maxSpeed = 0.35;
@@ -39,9 +39,16 @@ class Ball {
       lines[i].checkCollision(this);
     }
 
+    if(this.y < this.radius)
+      this.y = this.radius;
+    if(this.y > canvasHeight-this.radius)
+      this.y = canvasHeight-this.radius;
+    if(this.x < this.radius)
+      this.x = this.radius;
+    if(this.x > canvasWidth-this.radius)
+      this.x = canvasWidth-this.radius;
+
     this.x += this.dx;
     this.y += this.dy;
   }
 }
-
-export default Ball;
