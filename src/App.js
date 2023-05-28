@@ -27,7 +27,7 @@ export default function Canvas() {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     
-    //"main" function to updates canvas
+    //"main" function to update canvas
     function draw() {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -35,6 +35,8 @@ export default function Canvas() {
       for (let i = 0; i < balls.length; i++) {
         balls[i].move(canvas, lines);
         balls[i].draw(ctx);
+
+        //end game on collision
         if (playerBall.ballCollision(balls[i])) {
           window.alert("You lose! Score: " + score);
           playerBall.x = -1000;
@@ -50,7 +52,7 @@ export default function Canvas() {
 
       //powerup behavior
       for(let i = 0; i < powerups.length; i++) {
-        powerups[i].draw(ctx, gameClock);
+        powerups[i].draw(ctx);
         if(playerBall.powerUpCollision(powerups[i])) {
           powerups.splice(i, 1);
           power++;
@@ -89,7 +91,7 @@ export default function Canvas() {
           break;
         case ' ':
           if(power > 0) {
-            playerBall.powerUp();
+            playerBall.invincible = true;
             power--;
           }
           break;

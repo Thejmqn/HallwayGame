@@ -22,7 +22,7 @@ export default class PlayerBall {
       this.canvasWidth = canvasWidth;
       this.canvasHeight = canvasHeight;
       this.lines = lines;
-      this.poweredUp = false;
+      this.invincible = false;
     }
   
     draw(ctx) {
@@ -80,7 +80,7 @@ export default class PlayerBall {
       this.dy = percentHeight(newSpeed);
     }
 
-    stayInBounds(width, height) {
+    stayInBounds() {
       if (this.x < this.radius) {
         this.x = this.radius;
       }
@@ -124,7 +124,7 @@ export default class PlayerBall {
       const dy = this.y - otherBall.y;
       const offset = 10;
       const distance = Math.sqrt(dx * dx + dy * dy);
-      return distance + offset< this.radius + otherBall.radius;
+      return (distance + offset < this.radius + otherBall.radius) && !this.invincible;
     }
 
     powerUpCollision(powerUp) {
@@ -135,13 +135,5 @@ export default class PlayerBall {
       if(dx <= this.length/2 || dy <= this.length/2)
         return false;
       return (dx - this.length/2)^2 + (dy - this.length/2)^2;
-    }
-
-    powerUp() {
-      this.speed = 1;
-    }
-
-    powerDown() {
-      this.speed /= 2;
     }
 }

@@ -1,6 +1,6 @@
 import Line from './Line.js';
 
-class HorziontalLine extends Line {
+export default class HorziontalLine extends Line {
     constructor(x, y, length) {
       super(x, y, length);
     }
@@ -25,5 +25,3 @@ class HorziontalLine extends Line {
       }
     }
 }
-  
-export default HorziontalLine;

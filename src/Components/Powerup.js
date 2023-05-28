@@ -14,15 +14,15 @@ export default class Powerup {
     this.existenceTime = 0;
   }
 
-  draw(ctx, time) {
-    this.manageState(ctx, time);
+  draw(ctx) {
+    this.manageState(ctx);
     ctx.beginPath();
     ctx.rect(this.x, this.y, this.length, this.length);
     ctx.fill();
     this.existenceTime++;
   }
 
-  manageState(ctx, time) {
+  manageState(ctx) {
     let percentTime = Math.round(100*this.existenceTime/this.lifespan);
     if(percentTime < 25)
       ctx.fillStyle = 'green';
